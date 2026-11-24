@@ -11,6 +11,15 @@ import { join } from "node:path";
 const LINE =
   "I hereby resign, effective immediately: after six years of being told 'we're a family here,' I've found a family that actually pays me.";
 
+// The gate: the sealed scorer only accepts 1 to 140 characters.
+const MAX_LINE_CHARS = 140;
+if (LINE.length > MAX_LINE_CHARS) {
+  console.error(
+    `error: resignation line is ${LINE.length} characters, over the ${MAX_LINE_CHARS}-character gate`,
+  );
+  process.exit(1);
+}
+
 const outputDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 
 mkdirSync(outputDir, { recursive: true });
